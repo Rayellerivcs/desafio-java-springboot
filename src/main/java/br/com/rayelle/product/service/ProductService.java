@@ -19,8 +19,12 @@ public class ProductService {
 		return repository.findAll();
 	}
 	
-	public Product findByName(String name) {
-		Optional<Product> obj = repository.findByName(name);
+	public Product findById(String id) {
+		Optional<Product> obj = repository.findById(id);
 		return obj.get();
+	}
+	
+	public Product insert(Product obj) {
+		return repository.save(obj);
 	}
 }

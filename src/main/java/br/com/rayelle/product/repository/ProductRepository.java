@@ -8,6 +8,4 @@ import br.com.rayelle.product.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-	Optional<Product> findByName(String name);
-
 }
