@@ -50,7 +50,6 @@ public class ProductController {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
-//		return ResponseEntity.noContent().build();
 		return ResponseEntity.ok().build();
 	}
 
@@ -61,13 +60,6 @@ public class ProductController {
 		return ResponseEntity.created(uri).body(obj);
 	}
 
-//	@GetMapping(value = "/search")
-//	public ResponseEntity<List<Product>> search(@RequestParam (required = false) String q, 
-//													  @RequestParam (required = false) Double min_price,
-//													  @RequestParam (required = false) Double max_price) {
-//		
-//		return ResponseEntity.ok().body(service.search(q, min_price, max_price));
-//	}
 	@GetMapping(value = "/search")
 	public ResponseEntity<List<Product>> findProductByCustom(@RequestParam (required = false) String q, 
 													  @RequestParam (required = false) Double min_price,
