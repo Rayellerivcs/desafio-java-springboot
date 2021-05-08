@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.rayelle.product.dto.ProductDTO;
 import br.com.rayelle.product.entity.Product;
 import br.com.rayelle.product.service.ProductService;
 
@@ -27,24 +28,24 @@ public class ProductController {
 	private ProductService service;
 
 	@GetMapping
-	public ResponseEntity<List<Product>> findAll() {
+	public ResponseEntity<List<ProductDTO>> findAll() {
 
-		List<Product> list = service.findAll();
+		List<ProductDTO> list = service.findAll();
 
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Product> findById(@PathVariable String id) {
-		Product obj = service.findById(id);
+	public ResponseEntity<ProductDTO> findById(@PathVariable String id) {
+		ProductDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@PostMapping
-	public ResponseEntity<Product> insert(@RequestBody Product obj) {
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+	public ResponseEntity<ProductDTO> insert(@RequestBody Product obj) {
+		ProductDTO objDto = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objDto.getId()).toUri();
+		return ResponseEntity.created(uri).body(objDto);
 	}
 
 	@DeleteMapping(value = "/{id}")
@@ -54,16 +55,16 @@ public class ProductController {
 	}
 
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Product> update(@PathVariable String id, @RequestBody Product obj) {
+	public ResponseEntity<ProductDTO> update(@PathVariable String id, @RequestBody ProductDTO obj) {
 		obj = service.update(id, obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	}
 
 	@GetMapping(value = "/search")
-	public ResponseEntity<List<Product>> findProductByCustom(@RequestParam (required = false) String q, 
-													  @RequestParam (required = false) Double min_price,
-													  @RequestParam (required = false) Double max_price) {
+	public ResponseEntity<List<ProductDTO>> findProductByCustom(@RequestParam (required = false) String q, 
+															 @RequestParam (required = false) Double min_price,
+															 @RequestParam (required = false) Double max_price) {
 		
 		return ResponseEntity.ok().body(service.findProductByCustom(q, min_price, max_price));
 	}
